@@ -178,7 +178,6 @@ def main():
     embedding_model = TensorflowPredictEffnetDiscogs(graphFilename=emb_model, output="PartitionedCall:1")
     genmodel = TensorflowPredict2D(graphFilename=genre_model)
     moodmodel = TensorflowPredict2D(graphFilename=mood_model)
-    
     chord_estimator = Chordino()
     location_file=config['DEFAULT'].get('location_file',None)
     output_json_file=config['DEFAULT'].get('output_json_file',None)
