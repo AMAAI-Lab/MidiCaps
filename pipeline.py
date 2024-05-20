@@ -1,9 +1,11 @@
 from midi2audio import FluidSynth
+from music21 import converter, corpus, instrument, midi, note, chord, pitch, stream
 import glob
 import os
 from time import time
 from essentia.standard import MonoLoader, TensorflowPredictEffnetDiscogs, TensorflowPredict2D
 from chord_extractor.extractors import Chordino
+import configparser
 import json
 import argparse
 import numpy as np
@@ -15,9 +17,7 @@ def get_mtg_tags(embeddings,tag_model,tag_json,max_num_tags=5,tag_threshold=0.01
         metadata = json.load(json_file)
     predictions = tag_model(embeddings)
     mean_act=np.mean(predictions,0)
-
     ind = np.argpartition(mean_act, -max_num_tags)[-max_num_tags:]
-
     tags=[]
     confidence_score=[]
     for i in ind:
@@ -25,7 +25,6 @@ def get_mtg_tags(embeddings,tag_model,tag_json,max_num_tags=5,tag_threshold=0.01
         if mean_act[i]>tag_threshold:
             tags.append(metadata['classes'][i])
             confidence_score.append(mean_act[i])
-
     ind=np.argsort(-np.array(confidence_score))
     tags = [tags[i] for i in ind]
     confidence_score=np.round((np.array(confidence_score)[ind]).tolist(),4).tolist()
@@ -34,7 +33,6 @@ def get_mtg_tags(embeddings,tag_model,tag_json,max_num_tags=5,tag_threshold=0.01
 
 def process_midi(file):
     fs = FluidSynth('/666/midiproject/usr/share/soundfonts/FluidR3_GM.sf2',sample_rate=16000)
-
     #check for duration, do not synthesize files over 15 mins long...
     try:
         mid = mido.MidiFile(file)
@@ -46,11 +44,9 @@ def process_midi(file):
 
     prefix = os.path.dirname(file)
     suffix = os.path.basename(file).split('.')[0]
-    audio_file=os.path.join(prefix,suffix+'.wav'
-    fs.midi_to_audio(file, audio_file))
-    
+    audio_file=os.path.join(prefix,suffix+'.wav')
+    fs.midi_to_audio(file, audio_file)
     return audio_file
-
 
 def get_final_inst_list(midi_file_path):
     # Dictionary to store instrument durations
@@ -88,21 +84,16 @@ def get_final_inst_list(midi_file_path):
                 # Extract the instrument (channel) and note number
                 channel = msg.channel
                 note = msg.note
-
                 # Calculate the duration since the last event
                 duration = last_event_time - active_notes[(channel, note)]
                 active_notes[(channel, note)] = last_event_time
-
                 # Accumulate the duration for this instrument
                 instrument_durations[channel] += duration
-
     new_dict=sorted(instrument_durations.items(), key=lambda x:x[1],reverse=True)
-
     if len(instrument_names)>20:
         print('too many instruments in this one!')
         print(midi_file_path)
         return [], []
-
     sorted_instrument_list=[]
     how_many=min(5,len(set(instrument_names)))
     if how_many==0:
@@ -125,44 +116,77 @@ def get_final_inst_list(midi_file_path):
             print(e)
             print(midi_file_path)
             return sorted_instrument_list
-
     return sorted_instrument_list
 
-def main():
+def read_midi(path):
+    mf = midi.MidiFile()
+    mf.open(path)
+    mf.read()
+    mf.close()
+    return midi.translate.midiFileToStream(mf)
 
+def get_keys(midi):
+    keys = midi.analyze('keys')
+    return keys
+
+def get_time_signature(midi):
+    timeSignature = midi.getTimeSignatures()[0]
+    return timeSignature
+
+def get_tempo(midifile):
+    mid = mido.MidiFile(midifile)
+    try:
+        for msg in mid:
+            if msg.type == 'set_tempo':
+                tempo = mido.tempo2bpm(msg.tempo)
+                return tempo
+    except:
+        return None
+    return None
+
+def get_duration(file):
+    try:
+        mid = mido.MidiFile(file)
+        return mid.length
+    except:
+        return-1
+    
+def main():
     parser = argparse.ArgumentParser(description="Extract tags from a dataset.")
     parser.add_argument(
-    "--goon", action="store_true", default=True,
-    help="How many splits we're using."
-    )
+        "--goon", action="store_true", 
+        default=True,help="How many splits we're using."
+        )
+    parser.add_argument(
+        '--config', type=str, 
+        help='Path to the configuration file'
+        )
     args = parser.parse_args()
+    config = configparser.ConfigParser()
+    if args.config:
+        config.read(args.config)
+    else:
+        config.read('config.cfg')  # default config file
     goon=args.goon
-
     t=time()
-
-    genre_model="mtg_jamendo_genre-discogs-effnet-1.pb"
-    genre_metadata="mtg_jamendo_genre-discogs-effnet-1.json"
-    
-    mood_model="mtg_jamendo_moodtheme-discogs-effnet-1.pb"
-    mood_metadata="mtg_jamendo_moodtheme-discogs-effnet-1.json"
-
-    emb_model="discogs-effnet-bs64-1.pb"
+    genre_model=config['DEFAULT'].get('genre_model',None)
+    genre_metadata=config['DEFAULT'].get('genre_metadata',None)
+    mood_model=config['DEFAULT'].get('mood_model',None)
+    mood_metadata=config['DEFAULT'].get('mood_metadata',None)
+    emb_model=config['DEFAULT'].get('emb_model',None)
+    instrumentmap=config['DEFAULT'].get('instrumentmap',None)
     embedding_model = TensorflowPredictEffnetDiscogs(graphFilename=emb_model, output="PartitionedCall:1")
-
     genmodel = TensorflowPredict2D(graphFilename=genre_model)
     moodmodel = TensorflowPredict2D(graphFilename=mood_model)
-    chord_estimator = Chordino() 
-
-    which_file='/666/midiproject/all_files_list_random.json'
-    output_json_file='/666/midiproject/all_files_output.json'
-
-
+    
+    chord_estimator = Chordino()
+    location_file=config['DEFAULT'].get('location_file',None)
+    output_json_file=config['DEFAULT'].get('output_json_file',None)
     file_list=[]
-    with open(which_file,'r') as jsonfile:
+    with open(location_file,'r') as jsonfile:
         for row in jsonfile:
             a=json.loads(row)
             file_list.append(a['name'])
-
     if goon:
         auxilary_json_file=output_json_file[0:-5]+'aux'+'.json'
         current_file_list=[]
@@ -174,8 +198,6 @@ def main():
                     current_file_list.append(a)
                     aux_jsonfile.write(json.dumps(a) + '\n')
         how_many=len(current_file_list)-5
-
-
     i=0
     with open(output_json_file,'w') as out_json:
         if goon:
@@ -191,15 +213,13 @@ def main():
                         a=json.loads(row)
                         out_json.write(json.dumps(a) + '\n')
                         hh+=1
-
-
         for file in file_list:
+            midi = read_midi(file)
             if goon:
                 if file==goon_from_this_file['name']:
                     goon=False
                 else:
-                    continue
-            
+                    continue           
             #AUDIO PART
             audio_file=process_midi(file)
             if audio_file is None:
@@ -209,66 +229,59 @@ def main():
                 if len(audio)<48000: #remove samples less than 3 seconds long...
                     continue
                 embeddings = embedding_model(audio)
-
                 mood_tags, mood_cs = get_mtg_tags(embeddings,moodmodel,mood_metadata,max_num_tags=5,tag_threshold=0.02)
-                genre_tags, genre_cs = get_mtg_tags(embeddings,genmodel,genre_metadata,max_num_tags=4,tag_threshold=0.05)
-                
+                genre_tags, genre_cs = get_mtg_tags(embeddings,genmodel,genre_metadata,max_num_tags=4,tag_threshold=0.05)               
                 chords = chord_estimator.extract(audio_file)
                 os.remove(audio_file) #remove the audio file after synthesis, otherwise it takes too much space!
-
-
                 #MIDI PART
                 #instruments
                 try:
                     fulllist=get_final_inst_list(file)
                 except Exception as e:
                     print(e)
-                    print('skipped isntruments')
+                    print('skipped instruments')
                     i+=1
                     print(i)
                     fulllist=[]
-
                 #instrument mapping and summary
-                csvfile='/666/midiproject/instruments.csv'
-                with open (csvfile,'r') as csvf:
+                with open (instrumentmap,'r') as csvf:
                     csv_reader=csv.reader(csvf)
                     data = [row for row in csv_reader]
-
                 out_inst_list=[]
                 for inst in fulllist:
                     out_inst_list.append(data[inst][3])
-
-
                 #instruments summary - only add one instance of each instrument, then keep top 5
                 out_inst_sum_list=[]
                 for rr in out_inst_list:
                     if rr not in out_inst_sum_list:
                         out_inst_sum_list.append(rr)
-
                 how_many=np.min((5,len(out_inst_sum_list)))
                 out_inst_sum_list=out_inst_sum_list[0:how_many]
-
                 #key
-
+                try:
+                    res_key = get_keys(midi)
+                    key = res_key.tonic.name + " " + res_key.mode
+                except:
+                    key = None
                 #key postprocessing
-
                 if key is None:
                     key=key
                 elif '-' in key:
                     key=key.replace('-','b')
                 else:
                     key=key
-
-
-
-
                 #time signature
-
+                try:
+                    time_sig = get_time_signature(midi)
+                    time_signature = str(time_sig.numerator)+'/'+str(time_sig.denominator)
+                except:
+                    time_signature = None
                 #tempo
-
+                try:
+                    tempo = get_tempo(file)
+                except: 
+                    tempo = None
                 #tempo postprocessing
-
-
                 bpm=np.round(bpm)
                 if np.isnan(bpm):
                     cap=''
@@ -284,52 +297,38 @@ def main():
                     else:
                         tempo_marks=np.array((80, 120, 160))
                         tempo_caps=['Slow', 'Moderate tempo', 'Fast', 'Very fast']
-                        index=np.sum(bpm>tempo_marks)
+                        index=np.int(np.sum(bpm>tempo_marks))
                         tempo_cap=tempo_caps[index]
-
-
                 #duration
-
+                    try:
+                        duration = get_duration(file)
+                    except:
+                        duration = None
                 #duration postprocessing
                 dur_marks=np.array((30, 120, 300))
                 dur_caps=['Short fragment', 'Short song', 'Song', 'Long piece']
                 dur=int(np.round(duration))
-                index=np.sum(dur>dur_marks)
+                index=np.int(np.sum(dur>dur_marks))
                 dur_cap=dur_caps[index]
-
-
-
-
-
-
-
                 #sort nicely
-
                 new_row={}
                 new_row['name']=file
                 new_row['chords']=[(x.chord, x.timestamp) for x in chords[1:-1]]
                 new_row['genre']=[genre_tags, genre_cs]
                 new_row['mood']=[mood_tags, mood_cs]
-
                 new_row['tempo']=[bpm,tempo_cap]
                 new_row['duration']=[dur,dur_cap]
                 new_row['key']=key
-
-
+                new_row['time_signature'] = time_signature
+                new_row['tempo'] = tempo
                 new_row['sorted_instruments']=fulllist
                 new_row['mapped_instruments']=out_inst_list
                 new_row['mapped_instruments_summary']=out_inst_sum_list
-
-
-
-
-                
                 out_json.write(json.dumps(new_row) + '\n')
                 print(i)
                 i+=1
             else:
                 continue
-
     print(str(time()-t))
 
 if __name__ == "__main__":
