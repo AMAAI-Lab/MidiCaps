@@ -1,0 +1,129 @@
+﻿0,Piano,Acoustic Grand Piano,Piano
+1,Piano,Bright Acoustic Piano,Piano
+2,Piano,Electric Grand Piano,Electric Piano
+3,Piano,Honky-tonk Piano,Honky-tonk Piano
+4,Piano,Rhodes Piano,Piano
+5,Piano,Chorused Piano,Piano
+6,Piano,Harpsichord,Harpsichord
+7,Piano,Clavinet,Clavinet
+8,Chromatic Percussion,Celesta,Celesta
+9,Chromatic Percussion,Glockenspiel,Glockenspiel
+10,Chromatic Percussion,Music box,Music box
+11,Chromatic Percussion,Vibraphone,Vibraphone
+12,Chromatic Percussion,Marimba,Marimba
+13,Chromatic Percussion,Xylophone,Xylophone
+14,Chromatic Percussion,Tubular Bells,Tubular Bells
+15,Chromatic Percussion,Dulcimer,Dulcimer
+16,Organ,Hammond Organ,Hammond Organ
+17,Organ,Percussive Organ,Percussive Organ
+18,Organ,Rock Organ,Rock Organ
+19,Organ,Church Organ,Church Organ
+20,Organ,Reed Organ,Reed Organ
+21,Organ,Accordion,Accordion
+22,Organ,Harmonica,Harmonica
+23,Organ,Tango Accordion,Tango Accordion
+24,Guitar,Acoustic Guitar (nylon),Acoustic Guitar
+25,Guitar,Acoustic Guitar (steel),Acoustic Guitar
+26,Guitar,Electric Guitar (jazz),Electric Guitar
+27,Guitar,Electric Guitar (clean),Clean Electric Guitar
+28,Guitar,Electric Guitar (muted),Electric Guitar
+29,Guitar,Overdriven Guitar,Overdriven Guitar
+30,Guitar,Distortion Guitar,Distortion Guitar
+31,Guitar,Guitar Harmonics,Guitar Harmonics
+32,Bass,Acoustic Bass,Acoustic Bass
+33,Bass,Electric Bass (finger),Electric Bass
+34,Bass,Electric Bass (pick),Electric Bass
+35,Bass,Fretless Bass,Fretless Bass
+36,Bass,Slap Bass 1,Slap Bass
+37,Bass,Slap Bass 2,Slap Bass
+38,Bass,Synth Bass 1,Synth Bass
+39,Bass,Synth Bass 2,Synth Bass
+40,Strings,Violin,Violin
+41,Strings,Viola,Viola
+42,Strings,Cello,Cello
+43,Strings,Contrabass,Contrabass
+44,Strings,Tremolo Strings,Tremolo Strings
+45,Strings,Pizzicato Strings,Pizzicato Strings
+46,Strings,Orchestral Harp,Orchestral Harp
+47,Strings,Timpani,Timpani
+48,Ensemble,String Ensemble 1,String Ensemble
+49,Ensemble,String Ensemble 2,String Ensemble
+50,Ensemble,Synth Strings 1,Synth Strings
+51,Ensemble,Synth Strings 2,Synth Strings
+52,Ensemble,Choir Aahs,Choir Aahs
+53,Ensemble,Voice Oohs,Voice Oohs
+54,Ensemble,Synth Voice,Synth Voice
+55,Ensemble,Orchestra Hit,Orchestra Hit
+56,Brass,Trumpet,Trumpet
+57,Brass,Trombone,Trombone
+58,Brass,Tuba,Tuba
+59,Brass,Muted Trumpet,Muted Trumpet
+60,Brass,French Horn,French Horn
+61,Brass,Brass Section,Brass Section
+62,Brass,Synth Brass 1,Synth Brass
+63,Brass,Synth Brass 2,Synth Brass
+64,Reed,Soprano Sax,Soprano Saxophone
+65,Reed,Alto Sax,Alto Saxophone
+66,Reed,Tenor Sax,Tenor Saxophone
+67,Reed,Baritone Sax,Baritone Saxophone
+68,Reed,Oboe,Oboe
+69,Reed,English Horn,English Horn
+70,Reed,Bassoon,Bassoon
+71,Reed,Clarinet,Clarinet
+72,Pipe,Piccolo,Piccolo
+73,Pipe,Flute,Flute
+74,Pipe,Recorder,Recorder
+75,Pipe,Pan Flute,Pan Flute
+76,Pipe,Bottle Blow,Bottle Blow
+77,Pipe,Shakuhachi,Shakuhachi
+78,Pipe,Whistle,Whistle
+79,Pipe,Ocarina,Ocarina
+80,Synth Lead,Lead 1 (square),Synth Lead
+81,Synth Lead,Lead 2 (sawtooth),Synth Lead
+82,Synth Lead,Lead 3 (calliope lead),Calliope Lead
+83,Synth Lead,Lead 4 (chiffer lead),Chiffer Lead
+84,Synth Lead,Lead 5 (charang),Charang Lead
+85,Synth Lead,Lead 6 (voice),Synth Voice
+86,Synth Lead,Lead 7 (fifths),Synth Lead
+87,Synth Lead,Lead 8 (brass + lead),Brass Lead
+88,Synth Pad,Pad 1 (new age),Synth Pad
+89,Synth Pad,Pad 2 (warm),Synth Pad
+90,Synth Pad,Pad 3 (polysynth),Synth Pad
+91,Synth Pad,Pad 4 (choir),Synth Pad
+92,Synth Pad,Pad 5 (bowed),Synth Pad
+93,Synth Pad,Pad 6 (metallic),Synth Pad
+94,Synth Pad,Pad 7 (halo),Synth Pad
+95,Synth Pad,Pad 8 (sweep),Synth Pad
+96,Synth Effects,FX 1 (rain),Synth Effects
+97,Synth Effects,FX 2 (soundtrack),Synth Effects
+98,Synth Effects,FX 3 (crystal),Synth Effects
+99,Synth Effects,FX 4 (atmosphere),Synth Effects
+100,Synth Effects,FX 5 (brightness),Synth Effects
+101,Synth Effects,FX 6 (goblins),Synth Effects
+102,Synth Effects,FX 7 (echoes),Synth Effects
+103,Synth Effects,FX 8 (sci-fi),Synth Effects
+104,Ethnic,Sitar,Sitar
+105,Ethnic,Banjo,Banjo
+106,Ethnic,Shamisen,Shamisen
+107,Ethnic,Koto,Koto
+108,Ethnic,Kalimba,Kalimba
+109,Ethnic,Bagpipe,Bagpipe
+110,Ethnic,Fiddle,Fiddle
+111,Ethnic,Shana,Shana
+112,Percussive,Tinkle Bell,Tinkle Bell
+113,Percussive,Agogo,Agogo
+114,Percussive,Steel Drums,Steel Drums
+115,Percussive,Woodblock,Woodblock
+116,Percussive,Taiko Drum,Taiko Drum
+117,Percussive,Melodic Tom,Melodic Tom
+118,Percussive,Synth Drum,Synth Drum
+119,Percussive,Reverse Cymbal,Reverse Cymbal
+120,Sound Effects,Guitar Fret Noise,Guitar Fret Noise
+121,Sound Effects,Breath Noise,Breath Noise
+122,Sound Effects,Seashore,Seashore
+123,Sound Effects,Bird Tweet,Bird Tweet
+124,Sound Effects,Telephone Ring,Telephone Ring
+125,Sound Effects,Helicopter,Helicopter
+126,Sound Effects,Applause,Applause
+127,Sound Effects,Gunshot,Gunshot
+128,Drums,Drums,Drums

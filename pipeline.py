@@ -150,12 +150,50 @@ def get_duration(file):
         return mid.length
     except:
         return-1
+
+def find_most_repeating_sequence(chords_list, sequence_length):
+    sequences = [tuple(chords_list[i:i+sequence_length]) for i in range(len(chords_list) - sequence_length + 1)]
+    delete_index=[]
+    for i,seqs in enumerate(sequences):
+        if seqs [0]==seqs[-1]:
+            delete_index.append(i)
+    for i in reversed(delete_index):
+        sequences.pop(i)
+    sequence_counts = Counter(sequences)
+    try:
+        most_common_sequence, count = sequence_counts.most_common(1)[0]
+        return most_common_sequence, count
+    except Exception as e:
+        print(e)
+        return None, 0
+
+def give_me_final_seq(chords):
+    sequence_3, count_3 = find_most_repeating_sequence(chords, 3)
+    sequence_4, count_4 = find_most_repeating_sequence(chords, 4)
+    sequence_5, count_5 = find_most_repeating_sequence(chords, 5)
+    total_count=count_3+count_4+count_5
+    if count_5>0.25*(total_count):
+        if count_5>0.79*count_4:
+            return sequence_5, count_5
+    if count_4>0.3*(total_count):
+        if count_4>0.79*count_3:
+            return sequence_4, count_4
+    if count_3==0:
+        if count_4==0:
+            if count_5==0:
+                return None, 0 # everything is 0
+            else:
+                return sequence_5, count_5
+        else:
+            return sequence_4, count_4
+    else:
+        return sequence_3, count_3
     
 def main():
     parser = argparse.ArgumentParser(description="Extract tags from a dataset.")
     parser.add_argument(
         "--goon", action="store_true", 
-        default=True,help="How many splits we're using."
+        default=False,help="Resume extraction from the (unfinished) output file, backtracking 5 samples."
         )
     parser.add_argument(
         '--config', type=str, 
@@ -231,6 +269,23 @@ def main():
                 mood_tags, mood_cs = get_mtg_tags(embeddings,moodmodel,mood_metadata,max_num_tags=5,tag_threshold=0.02)
                 genre_tags, genre_cs = get_mtg_tags(embeddings,genmodel,genre_metadata,max_num_tags=4,tag_threshold=0.05)               
                 chords = chord_estimator.extract(audio_file)
+                chords_out = [(x.chord, x.timestamp) for x in chords[1:-1]]
+                #chord summary
+                ch_name=[]
+                ch_time=[]
+                for ch in chords_out:
+                    ch_name.append(ch[0])
+                    ch_time.append(ch[1])
+                if len(ch_name)<3:
+                    final_seq=ch_name
+                    final_count=1
+                else:
+                    final_seq, final_count = give_me_final_seq(ch_name)
+                if final_seq is not None:
+                    if len(final_seq)==4:
+                        if final_seq[0]==final_seq[2] and final_seq[1]==final_seq[3]:
+                            final_seq=final_seq[0:2]
+                chord_summary=[final_seq,final_count]
                 os.remove(audio_file) #remove the audio file after synthesis, otherwise it takes too much space!
                 #MIDI PART
                 #instruments
@@ -277,9 +332,9 @@ def main():
                     time_signature = None
                 #tempo
                 try:
-                    tempo = get_tempo(file)
+                    bpm = get_tempo(file)
                 except: 
-                    tempo = None
+                    bpm = None
                 #tempo postprocessing
                 bpm=np.round(bpm)
                 if np.isnan(bpm):
@@ -312,17 +367,17 @@ def main():
                 #sort nicely
                 new_row={}
                 new_row['name']=file
-                new_row['chords']=[(x.chord, x.timestamp) for x in chords[1:-1]]
                 new_row['genre']=[genre_tags, genre_cs]
                 new_row['mood']=[mood_tags, mood_cs]
-                new_row['tempo']=[bpm,tempo_cap]
-                new_row['duration']=[dur,dur_cap]
                 new_row['key']=key
                 new_row['time_signature'] = time_signature
-                new_row['tempo'] = tempo
-                new_row['sorted_instruments']=fulllist
-                new_row['mapped_instruments']=out_inst_list
+                new_row['tempo']=[bpm,tempo_cap]
+                new_row['duration']=[dur,dur_cap]
+                new_row['chord_summary']=chord_summary
                 new_row['mapped_instruments_summary']=out_inst_sum_list
+                new_row['mapped_instruments']=out_inst_list
+                new_row['sorted_instruments']=fulllist
+                new_row['chords']=chords_out
                 out_json.write(json.dumps(new_row) + '\n')
                 print(i)
                 i+=1
