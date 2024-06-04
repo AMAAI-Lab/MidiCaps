@@ -20,7 +20,7 @@ pip install -r requirements.txt
 ```bash
 python pipeline.py --config config.cfg
 ```
-Output of this will be 'all_files_output.json'. We generate 'test.json' from this to do in-context learning for [claude 3](https://www.anthropic.com/news/claude-3-family). we provide a sample 'test.json' and a basic script to run claude 3. Users have to add claude 3 key as environment variable ANTHROPIC_API_KEY.
+Output of this will be `all_files_output.json`. We generate `test.json` from this to do in-context learning for [claude 3](https://www.anthropic.com/news/claude-3-family). we provide a sample `test.json` and a basic script to run claude 3. Users have to add claude 3 key as environment variable ANTHROPIC_API_KEY.
 ```bash
 export ANTHROPIC_API_KEY=<your claude 3 key>
 python captions_claude.py
