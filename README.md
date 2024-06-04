@@ -1,7 +1,9 @@
 # MidiCaps - A Large-scale Dataset of Caption-annotated MIDI Files
 <p align="center">
-  
-[Paper](https://arxiv.org/abs/placeholder) | [dataset](https://huggingface.co/datasets/amaai-lab/MidiCaps)
+<div align="center">
+<a href="https://arxiv.org/abs/placeholder">Paper</a>,
+<a href="https://huggingface.co/datasets/amaai-lab/MidiCaps">Dataset</a>
+</div>
 </p>
 We introduce the first curated large-scale open dataset of MIDI-caption pairs: MidiCaps. In this repository, we provide the pipeline to extract a comprehensive set of music-specific features extracted from MIDI files. These features succinctly characterize the musical content, encompassing tempo, chord progression, time signature, instrument presence, genre, and mood. 
 
