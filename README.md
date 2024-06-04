@@ -9,7 +9,7 @@ In this repository, we provide the pipeline to extract a comprehensive set of mu
 
 To directly download the MidiCaps dataset, please visit our huggingface dataset page: [<img src="imgs/hf-logo.png" alt="dataset" width= "5%" class="center" >](https://huggingface.co/datasets/amaai-lab/MidiCaps). 
 
-The below code will help you extract captions from your own collection of MIDI files. If you use this model or dataset, please cite our paper (see below). 
+The below code will help you extract captions from your own collection of MIDI files, as per the framework described in our paper. If you use this model or dataset, please cite our work (see below). 
 
 ## Installation Guide
 ```bash
@@ -32,12 +32,12 @@ Please change line 59 in caption_claude.py for your preferred location.
 ## Citation
 If you find our work useful, please cite our paper:
 
-'''
+```
 @article{Melechovsky2024,
   author    = {Jan Melechovsky and Abhinaba Roy and Dorien Herremans},
   title     = {MidiCaps - A Large-scale MIDI Dataset with Text Captions},
   year      = {2024},
 }
-'''
+```
 
 APA: Jan Melechovsky, Abhinaba Roy, Dorien Herremans, 2024, MidiCaps - A large-scale MIDI dataset with text captions.
