@@ -79,7 +79,7 @@ def process_item(line):
     del agent
     return 1
     
-def get_captions(file='test.json'):
+def get_captions(file='all_files_output.json'):
     test_ = [json.loads(line) for line in open(file)]
     num_processes = multiprocessing.cpu_count()
     pool = multiprocessing.Pool(processes=2)
@@ -91,4 +91,4 @@ def get_captions(file='test.json'):
     print(f'time_taken in multiprocessing: {t_1 - t_0}')
 
 if __name__ =='__main__':
-    get_captions('test.json')
+    get_captions('all_files_output.json')
