@@ -5,7 +5,9 @@
 <a href="https://huggingface.co/datasets/amaai-lab/MidiCaps">Dataset</a>
 </div>
 
-In this repository, we provide the pipeline to extract a comprehensive set of music-specific features extracted from MIDI files. These features succinctly characterize the musical content, encompassing tempo, chord progression, time signature, instrument presence, genre, and mood. Consecutively we provide the script to generate captions from unseen MIDI files. To access the MidiCaps dataset, please visit our huggingface dataset page: [here](https://huggingface.co/datasets/amaai-lab/MidiCaps)
+In this repository, we provide the pipeline to extract a comprehensive set of music-specific features extracted from MIDI files. These features succinctly characterize the musical content, encompassing tempo, chord progression, time signature, instrument presence, genre, and mood. Consecutively we provide the script to generate captions from unseen MIDI files. 
+
+To access the MidiCaps dataset, please visit our huggingface dataset page: [<img src="imgs/hf-logo.png" alt="dataset" width= "5%" class="center" >](https://huggingface.co/datasets/amaai-lab/MidiCaps)
 
 ## Installation Guide
 ```bash
