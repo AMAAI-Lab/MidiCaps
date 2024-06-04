@@ -5,7 +5,7 @@
 <a href="https://huggingface.co/datasets/amaai-lab/MidiCaps">Dataset</a>
 </div>
 </p>
-We introduce the first curated large-scale open dataset of MIDI-caption pairs: MidiCaps. In this repository, we provide the pipeline to extract a comprehensive set of music-specific features extracted from MIDI files. These features succinctly characterize the musical content, encompassing tempo, chord progression, time signature, instrument presence, genre, and mood. 
+In this repository, we provide the pipeline to extract a comprehensive set of music-specific features extracted from MIDI files. These features succinctly characterize the musical content, encompassing tempo, chord progression, time signature, instrument presence, genre, and mood. Consecutively we provide the script to generate captions from unseen MIDI files. 
 
 ## Installation Guide
 ```bash
