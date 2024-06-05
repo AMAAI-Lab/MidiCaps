@@ -41,5 +41,3 @@ If you find our work useful, please cite [our paper](https://arxiv.org/abs/2406.
   journal   = {arXiv:2406.02255}
 }
 ```
-
-APA: Jan Melechovsky, Abhinaba Roy, Dorien Herremans. 2024. MidiCaps - A large-scale MIDI dataset with text captions, arXiv:2406.02255.
