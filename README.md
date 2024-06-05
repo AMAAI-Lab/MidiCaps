@@ -3,6 +3,7 @@
 <div align="center">
 <a href="https://arxiv.org/abs/placeholder">Paper</a>,
 <a href="https://huggingface.co/datasets/amaai-lab/MidiCaps">Dataset</a>
+  <a href="https://amaai-lab.github.io/MidiCaps/">Demo</a>
 </div>
 
 In this repository, we provide the pipeline to extract a comprehensive set of music-specific features extracted from MIDI files. These features succinctly characterize the musical content, encompassing tempo, chord progression, time signature, instrument presence, genre, and mood. Consecutively we provide the script to generate captions from your own collection of MIDI files. 
