@@ -1,14 +1,17 @@
 # MidiCaps - A Large-scale Dataset of Caption-annotated MIDI Files
-<p align="center">
+
 <div align="center">
 <a href="https://arxiv.org/abs/2406.02255">Paper</a>,
 <a href="https://huggingface.co/datasets/amaai-lab/MidiCaps">MidiCaps Dataset</a>, 
-  <a href="https://amaai-lab.github.io/MidiCaps/">Examples</a>
+<a href="https://amaai-lab.github.io/MidiCaps/">Examples</a>
+<br/><br/>
+  
+[![Hugging Face Dataset](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset-blue)](https://huggingface.co/datasets/amaai-lab/MidiCaps) [![arXiv](https://img.shields.io/badge/arXiv-2406.02255-brightgreen.svg)](https://arxiv.org/abs/2406.02255)
 </div>
 
 In this repository, we provide the pipeline to extract a comprehensive set of music-specific features extracted from MIDI files. These features succinctly characterize the musical content, encompassing tempo, chord progression, time signature, instrument presence, genre, and mood. Consecutively we provide the script to generate captions from your own collection of MIDI files. 
 
-To directly download the MidiCaps dataset, please visit our huggingface dataset page: [<img src="imgs/hf-logo.png" alt="dataset" width= "5%" class="center" >](https://huggingface.co/datasets/amaai-lab/MidiCaps). 
+To directly download the MidiCaps dataset, please visit our huggingface dataset page: [![Hugging Face Dataset](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset-blue)](https://huggingface.co/datasets/amaai-lab/MidiCaps). 
 
 The below code will help you extract captions from your own collection of MIDI files, as per the framework described [in our paper](https://arxiv.org/abs/2406.02255). 
 
