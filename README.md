@@ -26,6 +26,13 @@ pip install -r requirements.txt
 ```bash
 python pipeline.py --config config.cfg
 ```
+You will need to download some models that we use for genre-mood extraction (indicated in config.cfg), which can be found in the following links:
+- genre model and metadata : https://essentia.upf.edu/models/classification-heads/mtg_jamendo_genre/
+- mood model and metadata : https://essentia.upf.edu/models/classification-heads/mtg_jamendo_moodtheme/
+- emb model : https://essentia.upf.edu/models/music-style-classification/discogs-effnet/
+
+Also, you will need to download FluidR3_GM.sf2 from https://keymusician01.s3.amazonaws.com/FluidR3_GM.zip and replace the .sf2 file location in [line 35](https://github.com/AMAAI-Lab/MidiCaps/blob/17ceeb72ed1e339013e6fc7d70789fcf75023077/pipeline.py#L35).
+
 Output of this will be `all_files_output.json`. We generate `test.json` from this to do in-context learning for [claude 3](https://www.anthropic.com/news/claude-3-family). We provide a sample `test.json` and a basic script to run claude 3. Users have to add claude 3 key as environment variable `ANTHROPIC_API_KEY`.
 ```bash
 export ANTHROPIC_API_KEY=<your claude 3 key>
