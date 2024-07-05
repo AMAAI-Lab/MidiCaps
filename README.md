@@ -41,7 +41,7 @@ python caption_claude.py
 Please change [line 59](https://github.com/AMAAI-Lab/MidiCaps/blob/7266065a121e21029a1b83b3122c9a0b0e310204/caption_claude.py#L59) in `caption_claude.py` to your preferred location. 
 
 ## Citation
-If you find our work useful, please cite [our paper](https://arxiv.org/abs/2406.02255):
+If you use MidiCaps or code from this repo, please cite [our paper](https://arxiv.org/abs/2406.02255):
 
 ```
 @article{Melechovsky2024,
