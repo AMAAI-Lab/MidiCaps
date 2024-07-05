@@ -38,7 +38,7 @@ Output of this will be `all_files_output.json`. We generate `test.json` from thi
 export ANTHROPIC_API_KEY=<your claude 3 key>
 python caption_claude.py
 ```
-Please change [line 59](https://github.com/AMAAI-Lab/MidiCaps/blob/7266065a121e21029a1b83b3122c9a0b0e310204/caption_claude.py#L59) in `caption_claude.py` for your preferred location. 
+Please change [line 59](https://github.com/AMAAI-Lab/MidiCaps/blob/7266065a121e21029a1b83b3122c9a0b0e310204/caption_claude.py#L59) in `caption_claude.py` to your preferred location. 
 
 ## Citation
 If you find our work useful, please cite [our paper](https://arxiv.org/abs/2406.02255):
