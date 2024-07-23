@@ -1,4 +1,4 @@
-# MidiCaps - A Large-scale Dataset of Caption-annotated MIDI Files
+# MidiCaps: A Large-scale Dataset of Caption-annotated MIDI Files
 
 <div align="center">
 <a href="https://arxiv.org/abs/2406.02255">Paper</a>,
@@ -46,7 +46,7 @@ If you use MidiCaps or code from this repo, please cite [our paper](https://arxi
 ```
 @article{Melechovsky2024,
   author    = {Jan Melechovsky and Abhinaba Roy and Dorien Herremans},
-  title     = {MidiCaps - A Large-scale MIDI Dataset with Text Captions},
+  title     = {MidiCaps: A Large-scale MIDI Dataset with Text Captions},
   year      = {2024},
   journal   = {arXiv:2406.02255}
 }
